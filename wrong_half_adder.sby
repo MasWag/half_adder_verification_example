@@ -1,0 +1,12 @@
+[options]
+mode prove
+
+[engines]
+smtbmc
+
+[script]
+read -formal wrong_half_adder_with_assertion.v
+prep -top half_adder
+
+[files]
+wrong_half_adder_with_assertion.v

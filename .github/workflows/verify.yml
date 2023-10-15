@@ -1,0 +1,20 @@
+name: Verify
+
+on:
+  push:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    container: kzooma/yosys-slim:1.2
+    steps:
+    - uses: actions/checkout@v2
+    - name: Verify the half adder
+      run: sby half_adder.sby
+
+    - name: Find a bug in the wrong half adder
+      run: |
+        ! sby wrong_half_adder.sby
+
+    - name: SBY generates a .vcd file representing a counterexample
+      run: ls wrong_half_adder/engine_0/trace*.vcd
